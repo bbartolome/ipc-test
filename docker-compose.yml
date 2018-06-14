@@ -7,7 +7,7 @@ services:
       - "MODE=server"
     volumes:
       - "shared:/var/run"
-  client:
+  client1:
     image: test/ipc
     depends_on:
       - server
@@ -15,5 +15,14 @@ services:
       - "MODE=client"
     volumes:
       - "shared:/var/run"
+  client2:
+    image: test/ipc
+    depends_on:
+      - server
+    environment:
+      - "MODE=client"
+    volumes:
+      - "shared:/var/run"
+    command: "sh -c 'echo foo | node index.js'"
 volumes:
   shared:
