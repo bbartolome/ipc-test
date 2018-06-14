@@ -1,0 +1,19 @@
+version: "3.3"
+services:
+  server:
+    image: test/ipc
+    build: .
+    environment:
+      - "MODE=server"
+    volumes:
+      - "shared:/var/run"
+  client:
+    image: test/ipc
+    depends_on:
+      - server
+    environment:
+      - "MODE=client"
+    volumes:
+      - "shared:/var/run"
+volumes:
+  shared:
